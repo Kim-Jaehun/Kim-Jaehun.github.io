@@ -1,0 +1,18 @@
+---
+layout: post
+title:  "word2vec"
+date:   2018-03-22 13:43:59
+author: kim-jaehun
+categories: Deep Learning
+tags: Deep Learning word2vec
+---
+
+test
+test
+test
+test
+test
+test
+test
+test
+test
