@@ -19,3 +19,4 @@ tags: Deep_Learning word2vec
 
 
 ### F1 score
+ㅁ
