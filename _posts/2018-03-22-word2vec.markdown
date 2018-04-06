@@ -1,22 +1,21 @@
 ---
 layout: post
-title:  "word2vec"
+title:  "Precision, Recall, F1 Score"
 date:   2018-03-22 13:43:59
 author: kim-jaehun
 categories: Deep_Learning
 tags: Deep_Learning word2vec
 ---
+## 평가
 
-test
-test
-test
-test
-test
-test
-test
-test
-test
-TEST
-Teset
+### Precision (정밀도)
+정밀도는 검색된 결과들 중 관련 있는 것으로 분류된 결과물의 비율
 
-testaaaaaaaaa
+### Recall (재현율)
+재현율은 관련 있는 것으로 분류된 항목들 중 실제 검색된 항목들의 비율
+
+
+### Accuracy (정확도)
+
+
+### F1 score
