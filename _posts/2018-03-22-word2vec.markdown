@@ -11,6 +11,28 @@ tags: Deep_Learning word2vec
 ### Precision (정밀도)
 정밀도는 검색된 결과들 중 관련 있는 것으로 분류된 결과물의 비율
 
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>predict_POSTIVE</th>
+      <th>predict_NEGATIVE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>label_POSTIVE</td>
+      <td>true-postive</td>
+      <td>false-negative</td>
+    </tr>
+    <tr>
+      <td>label_NEGATIVE</td>
+      <td>false-postvie</td>
+      <td>true-negative</td>
+    </tr>
+  </tbody>
+</table>
+
 ### Recall (재현율)
 재현율은 관련 있는 것으로 분류된 항목들 중 실제 검색된 항목들의 비율
 
