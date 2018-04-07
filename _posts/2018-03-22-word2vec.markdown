@@ -40,6 +40,8 @@ $${TP \over TP + FP}$$
 
 
 
+
+
 ### Recall (재현율)
 
 재현율은 관련 있는 것으로 분류된 항목들 중 실제 검색된 항목들의 비율
@@ -70,6 +72,8 @@ $${TP \over TP + FN}$$
 
 
 
+
+
 ### Accuracy (정확도)
 
 $${TP \over TP + TN + FP + FN}$$
@@ -96,4 +100,27 @@ $${TP \over TP + TN + FP + FN}$$
   </tbody>
 </table>
 
+### F score
+
+정밀도(Precision)과 재현율(Recall)의 가중 조화 평균
+
+$$F_\beta = (1 + \beta^2) \, ({\text{precision} \times \text{recall}}) \, / \, ({\beta^2 \, \text{precision} + \text{recall}})$$
+
+
 ### F1 score
+
+베타 $$\beta$$  = 0
+
+$$F_1 = 2 \cdot \text{precision} \cdot \text{recall} \, / \, (\text{precision} + \text{recall})$$
+
+
+{% highlight python3 %}
+
+from sklearn.metrics import *
+
+y_true = [0, 1, 2, 2, 2]
+y_pred = [0, 0, 2, 2, 1]
+target_names = ['class 0', 'class 1', 'class 2']
+print(classification_report(y_true, y_pred, target_names=target_names))
+
+{% endhighlight %}
