@@ -14,8 +14,7 @@ use_math: true
 
 정밀도는 검색된 결과들 중 관련 있는 것으로 분류된 결과물의 비율
 
-$$a^2 + b^2 = c^2$$
-
+$$TP /(TP + FP)$$
 
 <table>
   <thead>
@@ -45,6 +44,8 @@ $$a^2 + b^2 = c^2$$
 
 재현율은 관련 있는 것으로 분류된 항목들 중 실제 검색된 항목들의 비율
 
+$$TP /(TP + FN)$$
+
 <table>
   <thead>
     <tr>
@@ -71,7 +72,7 @@ $$a^2 + b^2 = c^2$$
 
 ### Accuracy (정확도)
 
-
+$$TP /(TP + TN + FP + FN)$$
 <table>
   <thead>
     <tr>
