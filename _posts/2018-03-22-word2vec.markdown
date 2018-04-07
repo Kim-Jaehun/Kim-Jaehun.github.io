@@ -8,7 +8,9 @@ tags: Deep_Learning word2vec
 ---
 ## 평가
 
+
 ### Precision (정밀도)
+
 정밀도는 검색된 결과들 중 관련 있는 것으로 분류된 결과물의 비율
 
 <table>
@@ -33,7 +35,10 @@ tags: Deep_Learning word2vec
   </tbody>
 </table>
 
+
+
 ### Recall (재현율)
+
 재현율은 관련 있는 것으로 분류된 항목들 중 실제 검색된 항목들의 비율
 
 <table>
@@ -58,7 +63,14 @@ tags: Deep_Learning word2vec
   </tbody>
 </table>
 
+
+
 ### Accuracy (정확도)
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+
+a^2 + b^2 = c^2
+</script>
 
 <table>
   <thead>
@@ -71,13 +83,13 @@ tags: Deep_Learning word2vec
   <tbody>
     <tr>
       <td>label_POSTIVE</td>
-      <td>true-postive</td>
-      <td>false-negative</td>
+      <td bgcolor="#00FF00" >true-postive</td>
+      <td bgcolor="#00FF00">false-negative</td>
     </tr>
     <tr>
       <td>label_NEGATIVE</td>
-      <td>false-postvie</td>
-      <td>true-negative</td>
+      <td bgcolor="#00FF00" >false-postvie</td>
+      <td bgcolor="#00FF00" >true-negative</td>
     </tr>
   </tbody>
 </table>
