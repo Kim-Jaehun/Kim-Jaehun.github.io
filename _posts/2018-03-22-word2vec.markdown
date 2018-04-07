@@ -14,10 +14,7 @@ use_math: true
 
 정밀도는 검색된 결과들 중 관련 있는 것으로 분류된 결과물의 비율
 
-aaaaa
-$$
-K(a,b) = \int \mathcal{D}x(t) \exp(2\pi i S[x]/\hbar)
-$$
+$$a^2 + b^2 = c^2$$
 
 
 <table>
@@ -74,10 +71,6 @@ $$
 
 ### Accuracy (정확도)
 
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-
-a^2 + b^2 = c^2
-</script>
 
 <table>
   <thead>
