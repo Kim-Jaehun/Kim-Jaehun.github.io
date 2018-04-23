@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "RNN basic example"
+title:  "RNN basic example3"
 date:   2018-03-02 08:43:59
 author: kim-jaehun
 categories:
