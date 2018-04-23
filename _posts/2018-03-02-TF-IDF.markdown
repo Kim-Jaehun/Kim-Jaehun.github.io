@@ -4,7 +4,7 @@ title:  "TF-IDF"
 date:   2018-03-02 08:43:59
 author: kim-jaehun
 categories:
-  -NLP
+  - NLP
 tags: tf-idf
 ---
 
@@ -16,9 +16,10 @@ tags: tf-idf
 <br/>
 * DF(문서 빈도, document frequency)라고 하며, 이 값의 역수를 IDF(역문서 빈도, inverse document frequency)
 <br/>
+<br/>
 * TF-IDF는 TF와 IDF를 곱한 값
 
-$$\text{tf-idf}(d, t) = \text{tf}(d, t) \cdot \text{idf}(t)$$
+$${\text{tf-idf}(d, t) = \text{tf}(d, t) \cdot \text{idf}(t)}$$
 
 <br/><br/>
 ### 값을 산출하는 방식에는 여러 가지가 있다
