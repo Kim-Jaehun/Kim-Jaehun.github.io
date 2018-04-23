@@ -3,13 +3,14 @@ layout: post
 title:  "RNN basic example"
 date:   2018-04-23 13:43:59
 author: kim-jaehun
-categories: 'Deep Learning'
+categories:
+  - Deep Learning
 tags:  'RNN'
 use_math: true
 ---
 ## RNN basic
 
-### RNN
+### Data
 
 {% highlight python3 %}
 x_data = [[
@@ -21,9 +22,11 @@ x_data = [[
 
 데이터는 one-hot encoding으로 되어있다.
 
-batch_size = 1;
-sequence_length = 3;
-embedding_size = 4;
+batch_size = 1
+
+sequence_length = 3
+
+embedding_size = 4
 
 "Hello world !" -->  문장 1개
 
@@ -32,6 +35,7 @@ embedding_size = 4;
 각 단어의 백터의 사이즈 = 4
 
 
+### RNN
 
 {% highlight python3 %}
 with tf.variable_scope('one_cell') as scope:

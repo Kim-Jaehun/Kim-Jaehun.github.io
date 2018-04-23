@@ -3,8 +3,9 @@ layout: post
 title:  "Precision, Recall, F1 Score"
 date:   2018-03-22 13:43:59
 author: kim-jaehun
-categories: Deep_Learning
-tags: Deep_Learning word2vec
+categories:
+  - Deep Learning
+tags: 'Deep Learning'
 use_math: true
 ---
 ## 평가
@@ -109,7 +110,7 @@ $$F_\beta = (1 + \beta^2) \, ({\text{precision} \times \text{recall}}) \, / \, (
 
 ### F1 score
 
-베타 $$\beta$$  = 0
+베타 $$\beta$$  = 1
 
 $$F_1 = 2 \cdot \text{precision} \cdot \text{recall} \, / \, (\text{precision} + \text{recall})$$
 
@@ -133,4 +134,22 @@ precision    recall  f1-score   support
 avg / total       0.70      0.60      0.61         5
 """
 
+{% endhighlight %}
+
+### (precision, recall, f1 score) Average
+
+각 클래스별 (precision, recall , f1 score ), count를 출력.
+
+{% highlight python3 %}
+
+from sklearn.metrics import precision_recall_fscore_support
+
+y_true = np.array(['cat', 'dog', 'pig', 'cat', 'dog', 'pig', 'aaa'])
+y_pred = np.array(['cat', 'pig', 'dog', 'cat', 'cat', 'dog', 'dog'])
+
+print(precision_recall_fscore_support(y_true, y_pred))
+
+"""
+(array([1.  , 0.25, 0.  ]), array([1. , 0.5, 0. ]), array([1.        , 0.33333333, 0.        ]), array([2, 2, 3]))
+"""
 {% endhighlight %}
