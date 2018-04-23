@@ -12,38 +12,44 @@ use_math: true
 
 ### Term Frequency - Inverse Document Frequency
 
-TF(단어 빈도, term frequency)는 특정한 단어가 문서 내에 얼마나 자주 등장하는지를 나타내는 값
-
-DF(문서 빈도, document frequency)라고 하며, 이 값의 역수를 IDF(역문서 빈도, inverse document frequency)
-
-TF-IDF는 TF와 IDF를 곱한 값
+* TF(단어 빈도, term frequency)는 특정한 단어가 문서 내에 얼마나 자주 등장하는지를 나타내는 값  
+<br/>
+* DF(문서 빈도, document frequency)라고 하며, 이 값의 역수를 IDF(역문서 빈도, inverse document frequency)
+<br/>
+* TF-IDF는 TF와 IDF를 곱한 값
 
 $$\text{tf-idf}(d, t) = \text{tf}(d, t) \cdot \text{idf}(t)$$
 
-
+<br/><br/>
 ### 값을 산출하는 방식에는 여러 가지가 있다
 
 TF는 문서 d 내에서 단어 t의 총 빈도를 f(t,d)라 할 경우, 가장 단순한 tf 산출 방식은 tf(t,d) = f(t,d)로 표현
 
 * 불린 빈도 - tf(t,d) = 1: t가 d에 한 번이라도 나타나면 1, 아니면 0
-
+<br/>
 * 로그 스케일 빈도: tf(t,d) = log (f(t,d) + 1);
-
+<br/>
 * 증가 빈도: 문서의 길이에 따라 단어의 빈도값 조정
-{\mathrm  {tf}}(t,d)=0.5+{\frac  {0.5\times {\mathrm  {f}}(t,d)}{\max\{{\mathrm  {f}}(w,d):w\in d\}}}
+
 $${tf(t,d) = 0.5 + {  0.5 * f(t,f) \over \max_\{f(w,d): w \in d\}}}$$
 
-
+<br/>
+<br/>
 역문서 빈도(IDF)는 한 단어가 문서 집합 전체에서 얼마나 공통적으로 나타나는지를 나타내는 값
 
-{\mathrm  {idf}}(t,D)=\log {\frac  {|D|}{|\{d\in D:t\in d\}|}}
-$${idf(t,D) = \log \dfrac{{\letf| D \right|}{\left| \{ d \in D : t \in d} \}\right|} }$$
+
+
+$${\mathrm  {idf}}(t,D)=\log {\frac  {|D|}{|\{d\in D:t\in d\}|}}$$
+
+<br/>
 
 * |D|: 문서 집합 D의 크기, 또는 전체 문서의 수
-{\displaystyle |\{d\in D:t\in d\}|} |\{d\in D:t\in d\}| : 단어 {\displaystyle t} t가 포함된 문서의 수.(즉, {\displaystyle \mathrm {tf} (t,d)\neq 0} {\mathrm  {tf}}(t,d)\neq 0). 단어가 전체 말뭉치 안에 존재하지 않을 경우 이는 분모가 0이 되는 결과를 가져온다. 이를 방지하기 위해 {\displaystyle 1+|\{d\in D:t\in d\}|} 1+|\{d\in D:t\in d\}|로 쓰는 것이 일반적이다.
+* $$|\{d\in D:t\in d\}|$$:단어 t가 전체 말뭉치 안에 존재하지 않을 경우 이는 분모가 0이 되는 결과를 가져온다. 이를 방지하기 위해 $${\displaystyle 1+|\{d\in D:t\in d\}|} 1+|\{d\in D:t\in d\}|$$로 쓰는 것이 일반적이다.
+<br/>
 
-{{\text{idf}(d, t) = \log \dfrac{n}{1 + \text{df}(t)}}}
+$${{\text{idf}(d, t) = \log \dfrac{n}{1 + \text{df}(t)}}}$$
 
+<br/><br/>
 ## 결과
 
 특정 문서 내에서 단어 빈도가 높을 수록, 그리고 전체 문서들 중 그 단어를 포함한 문서가 적을 수록 TF-IDF값이 높아진다
@@ -145,6 +151,7 @@ tf_idf = tf_transformer.transform(tf)
 print(tf_idf.toarray())
 
 {% endhighlight %}
+
 
 
 'this' : tf = 1, df = 2 , N = 4

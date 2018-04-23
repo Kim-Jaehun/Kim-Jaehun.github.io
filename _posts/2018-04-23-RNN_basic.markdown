@@ -1,0 +1,28 @@
+---
+layout: post
+title:  "TextCNN"
+date:   2018-04-23 13:43:59
+author: kim-jaehun
+categories:
+  - Deep Learning
+tags:  CNN
+use_math: true
+---
+# TextCNN
+
+[Convolutional Neural Networks for Sentence Classification](http://emnlp2014.org/papers/pdf/EMNLP2014181.pdf) 에서 제안된 방법이다.
+
+<br>
+
+![TextCNN_architecture](https://drive.google.com/uc?id=1V_eDSDjbEFknbFJPkCACO8ZQSdj7O0os)
+
+<br>
+
+
+
+
+참고문헌
+
+
+* https://ratsgo.github.io/natural%20language%20processing/2017/03/19/CNN/
+* [Convolutional Neural Networks for Sentence Classification](http://emnlp2014.org/papers/pdf/EMNLP2014181.pdf)
