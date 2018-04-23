@@ -5,7 +5,7 @@ date:   2018-04-23 13:43:59
 author: kim-jaehun
 categories:
   - Deep Learning
-tags:  'RNN'
+tags:  RNN
 use_math: true
 ---
 ## RNN basic
@@ -214,7 +214,6 @@ output의 출력은 마지막 hidden-siz3=6
 (array([[[-0.11544231, -0.6719475 ], [ 0.64414954, -0.41345194], [ 0.7955334 ,  0.10082521]]], dtype=float32),
 array([[[ 0.26266363, -0.7163632 ], [-0.02817043, -0.88044846], [ 0.31503847, -0.5990384 ]]], dtype=float32))
 **********
-
 (array([[0.7955334 , 0.10082521]], dtype=float32),
 array([[ 0.26266363, -0.7163632 ]], dtype=float32))
 

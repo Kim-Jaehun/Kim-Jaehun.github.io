@@ -4,8 +4,8 @@ title:  "Precision, Recall, F1 Score"
 date:   2018-03-22 13:43:59
 author: kim-jaehun
 categories:
-  - Deep Learning
-tags: 'Deep Learning'
+  - Evaluation
+tags: Evaluation
 use_math: true
 ---
 ## 평가
