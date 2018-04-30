@@ -3,8 +3,7 @@ layout: post
 title:  "TextCNN"
 date:   2018-03-02 08:43:59
 author: kim-jaehun
-categories:
-  - Deep Learning
+categories: [Deep Learning]
 tags: CNN
 ---
 
@@ -17,12 +16,81 @@ tags: CNN
 ![TextCNN_architecture](https://drive.google.com/uc?id=1V_eDSDjbEFknbFJPkCACO8ZQSdj7O0os)
 
 <br>
+<br>
+
+#### CNN을 이용해서 Text Classification 구현
+<br>
+{% highlight python3 %}
+"""Load data"""
+x_text, y = data_helpers.load_data_and_labels(FLAGS.positive_data_file, FLAGS.negative_data_file)"
+{% endhighlight %}
+
+x_text : 데이터 문장
+y : [1,0] 긍정, [0,1] 부정
+
+
+{% highlight python3 %}
+"""Build vocabulary"""
+max_document_length = max([len(x.split(" ")) for x in x_text])
+vocab_processor = learn.preprocessing.VocabularyProcessor(max_document_length)
+x = np.array(list(vocab_processor.fit_transform(x_text)))
+{% endhighlight %}
+
+max_document_length : 가장 긴 문장의 사이즈
+* [learn.preprocessing.VocabularyProcessor](http://tflearn.org/data_utils/)의 예제
+
+{% highlight python3 %}
+x = ['i like pizza', 'i like pasta']
+vocab_processor = learn.preprocessing.VocabularyProcessor(4)
+x = np.array(list(vocab_processor.fit_transform(x)))
+"""
+[[1 2 3 0]
+ [1 2 4 0]]
+"""
+{% endhighlight %}
+
+<br>
+{% highlight python3 %}
+"""Randomly shuffle data"""
+np.random.seed(10)
+shuffle_indices = np.random.permutation(np.arange(len(y)))
+x_shuffled = x[shuffle_indices]
+y_shuffled = y[shuffle_indices]
+{% endhighlight %}
+
+데이터를 무작위로 섞는다.
+
+<br>
+{% highlight python3 %}
+""" Split train/test set"""
+dev_sample_index = -1 * int(FLAGS.dev_sample_percentage * float(len(y)))
+x_train, x_dev = x_shuffled[:dev_sample_index], x_shuffled[dev_sample_index:]
+y_train, y_dev = y_shuffled[:dev_sample_index], y_shuffled[dev_sample_index:]
+{% endhighlight %}
+
+데이터를 학습데이터 , 평가데이터로 나눈다.
+
+<br>
+{% highlight python3 %}
+""" Split train/test set"""
+dev_sample_index = -1 * int(FLAGS.dev_sample_percentage * float(len(y)))
+x_train, x_dev = x_shuffled[:dev_sample_index], x_shuffled[dev_sample_index:]
+y_train, y_dev = y_shuffled[:dev_sample_index], y_shuffled[dev_sample_index:]
+{% endhighlight %}
 
 
 
 
+
+
+
+
+
+
+<br><br>
 #### 참고문헌
 
 
 * https://ratsgo.github.io/natural%20language%20processing/2017/03/19/CNN/
 * [Convolutional Neural Networks for Sentence Classification](http://emnlp2014.org/papers/pdf/EMNLP2014181.pdf)
+* http://www.wildml.com/2015/12/implementing-a-cnn-for-text-classification-in-tensorflow/

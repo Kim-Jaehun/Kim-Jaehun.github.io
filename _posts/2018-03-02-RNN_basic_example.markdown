@@ -3,8 +3,7 @@ layout: post
 title:  "RNN basic example"
 date:   2018-03-02 08:43:59
 author: kim-jaehun
-categories:
-  - Deep Learning
+categories: [Deep Learning]
 tags: RNN
 ---
 
