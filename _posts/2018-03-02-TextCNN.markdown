@@ -144,7 +144,7 @@ ksize가 [1, 2, 2, 1]이라면 배치데이터/채널별로 가로, 세로 두 �
         self.h_pool_flat = tf.reshape(self.h_pool, [-1, num_filters_total])
 ```
 
-```python
+```
 with tf.name_scope("output"):
   W = tf.get_variable("W",
                       shape=[num_filters_total, num_classes], initializer=tf.contrib.layers.xavier_initializer())
