@@ -9,7 +9,7 @@ tags: tensorflow
 
 # TextCNN
 
-{% highlight python3 %}
+```python
 import numpy as np
 import tensorflow as tf
 
@@ -23,11 +23,11 @@ a = tf.nn.embedding_lookup(W, [0, 5, 17, 33])
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     print(sess.run(a))
-{% endhighlight %}
+```
 
 
-{% highlight python3 %}
-"""
+```python
+
 [[0.84965233 0.38010627 0.7802087  0.04073734 0.50221357]
  [0.55038719 0.03107117 0.1585652  0.75408777 0.48864533]
  [0.85355485 0.58459576 0.4010224  0.40606138 0.0696808 ]
@@ -38,5 +38,5 @@ with tf.Session() as sess:
  [-0.89544654  0.10968471 -0.16236877  0.21120214  0.9161763 ]
  [-0.9957292  -0.7955282   0.5413501   0.7636821   0.00398588]]
 
-"""
-{% endhighlight %}
+
+```

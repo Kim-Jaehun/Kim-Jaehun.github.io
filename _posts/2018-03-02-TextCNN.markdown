@@ -20,26 +20,22 @@ tags: CNN
 
 #### CNN을 이용해서 Text Classification 구현
 <br>
-{% highlight python3 %}
-"""Load data"""
-x_text, y = data_helpers.load_data_and_labels(FLAGS.positive_data_file, FLAGS.negative_data_file)
-{% endhighlight %}
 
-x_text : 데이터 문장<br>
-y : [1,0] 긍정, [0,1] 부정
+
 
 <br>
-{% highlight python3 %}
-"""Build vocabulary"""
+```python
+#Build vocabulary
 max_document_length = max([len(x.split(" ")) for x in x_text])
 vocab_processor = learn.preprocessing.VocabularyProcessor(max_document_length)
 x = np.array(list(vocab_processor.fit_transform(x_text)))
-{% endhighlight %}
+```
 
 max_document_length : 가장 긴 문장의 사이즈
-* [learn.preprocessing.VocabularyProcessor](http://tflearn.org/data_utils/)의 예제
+[learn.preprocessing.VocabularyProcessor](http://tflearn.org/data_utils/)의 예제
 
-{% highlight python3 %}
+<br>
+```python
 x = ['i like pizza', 'i like pasta']
 vocab_processor = learn.preprocessing.VocabularyProcessor(4)
 x = np.array(list(vocab_processor.fit_transform(x)))
@@ -47,112 +43,124 @@ x = np.array(list(vocab_processor.fit_transform(x)))
 [[1 2 3 0]
  [1 2 4 0]]
 """
-{% endhighlight %}
+```
+
 
 <br>
-{% highlight python3 %}
-"""Randomly shuffle data"""
-np.random.seed(10)
-shuffle_indices = np.random.permutation(np.arange(len(y)))
-x_shuffled = x[shuffle_indices]
-y_shuffled = y[shuffle_indices]
-{% endhighlight %}
+## TextCNN
 
-데이터를 무작위로 섞는다.
+
+TextCNN에서 학습시 업데이트될 Weight.
+
+1. lookup 테이블 (word2vec으로 대체 가능)
+2. filter (W)
 
 <br>
-{% highlight python3 %}
-""" Split train/test set"""
-dev_sample_index = -1 * int(FLAGS.dev_sample_percentage * float(len(y)))
-x_train, x_dev = x_shuffled[:dev_sample_index], x_shuffled[dev_sample_index:]
-y_train, y_dev = y_shuffled[:dev_sample_index], y_shuffled[dev_sample_index:]
-{% endhighlight %}
+####  lookup 테이블(W)
 
-데이터를 학습데이터 , 평가데이터로 나눈다.
-
-<br>
-{% highlight python3 %}
-""" Split train/test set"""
-dev_sample_index = -1 * int(FLAGS.dev_sample_percentage * float(len(y)))
-x_train, x_dev = x_shuffled[:dev_sample_index], x_shuffled[dev_sample_index:]
-y_train, y_dev = y_shuffled[:dev_sample_index], y_shuffled[dev_sample_index:]
-{% endhighlight %}
+> 각 단어의 벡터는 학습 과정에서 조금씩 업데이트된다.
 
 
-
-### Train
-<br>
-{% highlight python3 %}
-"""Placeholders for input, output and dropout"""
-self.input_x = tf.placeholder(tf.int32, [None, sequence_length], name="input_x")
-self.input_y = tf.placeholder(tf.float32, [None, num_classes], name="input_y")
-self.dropout_keep_prob = tf.placeholder(tf.float32, name="dropout_keep_prob")
-
-"""Embedding layer"""
+```python
+#Embedding layer
 with tf.device('/cpu:0'), tf.name_scope("embedding"):
   self.W = tf.Variable(tf.random_uniform([vocab_size, embedding_size], -1.0, 1.0), name="W")
   self.embedded_chars = tf.nn.embedding_lookup(self.W, self.input_x)
   self.embedded_chars_expanded = tf.expand_dims(self.embedded_chars, -1)
-{% endhighlight %}
-
-<br>
-<br>
-{% highlight python3 %}
-       pooled_outputs = []
-       for i, filter_size in enumerate(filter_sizes):
-           with tf.name_scope("conv-maxpool-%s" % filter_size):
-               # Convolution Layer
-               filter_shape = [filter_size, embedding_size, 1, num_filters]
-               W = tf.Variable(tf.truncated_normal(filter_shape, stddev=0.1), name="W")
-               b = tf.Variable(tf.constant(0.1, shape=[num_filters]), name="b")
-               conv = tf.nn.conv2d(
-                   self.embedded_chars_expanded,
-                   W,
-                   strides=[1, 1, 1, 1],
-                   padding="VALID",
-                   name="conv")
-               h = tf.nn.relu(tf.nn.bias_add(conv, b), name="relu")
-               pooled = tf.nn.max_pool(
-                   h,
-                   ksize=[1, sequence_length - filter_size + 1, 1, 1],
-                   strides=[1, 1, 1, 1],
-                   padding='VALID',
-                   name="pool")
-               pooled_outputs.append(pooled)
-
-       num_filters_total = num_filters * len(filter_sizes)
-       self.h_pool = tf.concat(pooled_outputs, 3)
-       self.h_pool_flat = tf.reshape(self.h_pool, [-1, num_filters_total])
-
-{% endhighlight %}
+```
 <br>
 <br>
 
-{% highlight python3 %}
+**embedding_size 5 ,vocab_size = 5**
+**vocab = {저의,이름은,김재헌,이라고,합니다}**
 
- with tf.name_scope("dropout"):
-     self.h_drop = tf.nn.dropout(self.h_pool_flat, self.dropout_keep_prob)
+![lookup_table_embedding_lookup](https://drive.google.com/uc?id=1MSyJWPTdcymGuoh9YZhfgfsh4efSrpU2)
 
- with tf.name_scope("output"):
-     W = tf.get_variable(
-         "W",
-         shape=[num_filters_total, num_classes],
-         initializer=tf.contrib.layers.xavier_initializer())
-     b = tf.Variable(tf.constant(0.1, shape=[num_classes]), name="b")
-     l2_loss += tf.nn.l2_loss(W)
-     l2_loss += tf.nn.l2_loss(b)
-     self.scores = tf.nn.xw_plus_b(self.h_drop, W, b, name="scores")
-     self.predictions = tf.argmax(self.scores, 1, name="predictions")
 
- with tf.name_scope("loss"):
-     losses = tf.nn.softmax_cross_entropy_with_logits(logits=self.scores, labels=self.input_y)
-     self.loss = tf.reduce_mean(losses) + l2_reg_lambda * l2_loss
+선택된(빨간 박스) 벡터의 값만 가져온다.(tf.nn.embedding_lookup(w,[0,2]))
 
- with tf.name_scope("accuracy"):
-     correct_predictions = tf.equal(self.predictions, tf.argmax(self.input_y, 1))
-     self.accuracy = tf.reduce_mean(tf.cast(correct_predictions, "float"), name="accuracy")
+실제 코드에서는 문장 중 포함된 단어의 벡터들을 가져온다.
 
-{% endhighlight %}
+
+
+<br>
+<br>
+#### Conv2d
+<br>
+
+```python
+filter_shape = [filter_size, embedding_size, 1, num_filters]
+W = tf.Variable(tf.truncated_normal(filter_shape, stddev=0.1), name="W")
+b = tf.Variable(tf.constant(0.1, shape=[num_filters]), name="b")
+conv = tf.nn.conv2d(self.embedded_chars_expanded,
+                    W,
+                    strides=[1, 1, 1, 1],
+                    padding="VALID",
+                    name="conv")
+```
+<br>
+
+![conv2d](https://drive.google.com/uc?id=12nw-bRJX3iwkhHa3gzGC95AjgoGxwV_f)
+
+
+
+문장 : '저의 이름은 김재헌 이라고 합니다'(embedding_size = 5, sequence_length=5) 있다고 가정할때,
+
+>4 * W11+3 * W12+5 * W13+1 * W14+2 * W15 + 2 * W21+1 * W22+0 * W23+1 * W24+0 * W25 + 1 * W31+2 * W32+4 * W33+0 * W34+2 * W35 = **A**
+>...  = **B**
+>...  = **C**
+
+
+<br>
+<br>
+#### Relu
+```python
+h = tf.nn.relu(tf.nn.bias_add(conv, b), name="relu")
+```
+<br>
+<br>
+#### max pooling
+```python
+pooled = tf.nn.max_pool(
+                    h,
+                    ksize=[1, sequence_length - filter_size + 1, 1, 1],
+                    strides=[1, 1, 1, 1],
+                    padding='VALID',
+                    name="pool")
+```
+![max_pooling](https://drive.google.com/uc?id=1yF01mcxlK4aAgct8FUROw2t_jUXzkJun)
+
+ksize가 [1, 2, 2, 1]이라면 배치데이터/채널별로 가로, 세로 두 칸씩 움직이면서 Max-pooling하라는 지시입니다.
+여기서는 ksize=[1, sequence_length - filter_size + 1, 1, 1] 는 전체 행을 의미, 즉 결과 필터별로 하나의 값을 출력.
+
+
+<br>
+#### Full-connected layer
+<br>
+```python
+# Combine all the pooled features
+        num_filters_total = num_filters * len(filter_sizes)
+        self.h_pool = tf.concat(pooled_outputs, 3)
+        self.h_pool_flat = tf.reshape(self.h_pool, [-1, num_filters_total])
+```
+
+```python
+with tf.name_scope("output"):
+  W = tf.get_variable("W",
+                      shape=[num_filters_total, num_classes], initializer=tf.contrib.layers.xavier_initializer())
+  b = tf.Variable(tf.constant(0.1, shape=[num_classes]), name="b")
+  l2_loss += tf.nn.l2_loss(W)
+  l2_loss += tf.nn.l2_loss(b)
+  self.scores = tf.nn.xw_plus_b(self.h_drop, W, b, name="scores")
+  self.predictions = tf.argmax(self.scores, 1, name="predictions")
+
+# Calculate mean cross-entropy loss
+with tf.name_scope("loss"):
+  losses = tf.nn.softmax_cross_entropy_with_logits(logits=self.scores, labels=self.input_y)
+  self.loss = tf.reduce_mean(losses) + l2_reg_lambda * l2_loss
+```
+
+![Full_connected_layer](https://drive.google.com/uc?id=10iQTHJuPqRRixBNuqLxpkJic9DqmERfr)
 
 
 
