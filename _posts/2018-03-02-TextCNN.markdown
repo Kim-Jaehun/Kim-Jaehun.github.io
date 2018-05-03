@@ -137,11 +137,11 @@ ksize가 [1, 2, 2, 1]이라면 배치데이터/채널별로 가로, 세로 두 �
 <br>
 #### Full-connected layer
 <br>
-```python
+```
 # Combine all the pooled features
-        num_filters_total = num_filters * len(filter_sizes)
-        self.h_pool = tf.concat(pooled_outputs, 3)
-        self.h_pool_flat = tf.reshape(self.h_pool, [-1, num_filters_total])
+num_filters_total = num_filters * len(filter_sizes)
+self.h_pool = tf.concat(pooled_outputs, 3)
+self.h_pool_flat = tf.reshape(self.h_pool, [-1, num_filters_total])
 ```
 
 ```
