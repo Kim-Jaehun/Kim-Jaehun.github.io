@@ -3,8 +3,9 @@ layout: post
 title:  "Precision, Recall, F1 Score"
 date:   2018-03-22 13:43:59
 author: kim-jaehun
-categories: Deep_Learning
-tags: Deep_Learning word2vec
+categories:
+  - Evaluation
+tags: Evaluation
 use_math: true
 ---
 ## 평가
