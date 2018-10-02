@@ -3,7 +3,7 @@ layout: post
 title:  "Gradient Clipping(그래디언트 클리핑)"
 date:   2018-03-02 08:43:59
 author: kim-jaehun
-categories: Dummy
+categories: [Deep Learning]
 tags: lorem ipsum
 ---
 
