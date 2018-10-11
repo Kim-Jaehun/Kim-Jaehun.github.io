@@ -28,18 +28,16 @@ $${TP \over TP + FP}$$
   <tbody>
     <tr>
       <td>label_POSTIVE</td>
-      <td bgcolor="#00FF00" >true-postive</td>
-      <td bgcolor="#00FF00" >false-negative</td>
+      <td bgcolor="#00FF00">true-postive</td>
+      <td >false-negative</td>
     </tr>
     <tr>
       <td>label_NEGATIVE</td>
-      <td>false-postvie</td>
+      <td bgcolor="#00FF00" >false-postvie</td>
       <td>true-negative</td>
     </tr>
   </tbody>
 </table>
-
-
 
 
 
@@ -60,16 +58,17 @@ $${TP \over TP + FN}$$
   <tbody>
     <tr>
       <td>label_POSTIVE</td>
-      <td bgcolor="#00FF00">true-postive</td>
-      <td >false-negative</td>
+      <td bgcolor="#00FF00" >true-postive</td>
+      <td bgcolor="#00FF00" >false-negative</td>
     </tr>
     <tr>
       <td>label_NEGATIVE</td>
-      <td bgcolor="#00FF00" >false-postvie</td>
+      <td>false-postvie</td>
       <td>true-negative</td>
     </tr>
   </tbody>
 </table>
+
 
 
 
