@@ -68,3 +68,23 @@ python label_image.py \
 ```
 retrain.py -h
 ```
+
+
+#### 평가 방법
+
+* Top-1 error rate
+ 모델이 가장 높은 확률로 예측한 1가지 예측이 정답이 아닌 빈도를 검토하는 것이다.
+* Top-5 error rate
+ 모델이 가장 높은 확률로 예측한 5가지 예측이 정답이 아닌 빈도를 검토하는 것이다.
+
+
+>  2012년 검증 데이터 세트에서 나타난 각 모델의 top-5 error rate는 AlexNet이 15.3%, BN-Inception-v2이 6.66%였고 Inception-v3는 3.46%를 달성했다.
+
+
+
+
+<br>
+<br>
+<br>
+#### 참고문헌
+* https://tensorflowkorea.gitbooks.io/tensorflow-kr/content/g3doc/tutorials/image_recognition/

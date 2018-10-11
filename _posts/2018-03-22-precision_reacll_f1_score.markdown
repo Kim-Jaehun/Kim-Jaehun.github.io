@@ -153,3 +153,29 @@ print(precision_recall_fscore_support(y_true, y_pred))
 (array([1.  , 0.25, 0.  ]), array([1. , 0.5, 0. ]), array([1.        , 0.33333333, 0.        ]), array([2, 2, 3]))
 """
 {% endhighlight %}
+
+
+### Computing Precision and Recall for Multi-Class Classification
+
+
+* 실제 Precision, Recall 계산 방법
+
+![aaaa](https://drive.google.com/uc?id=1ctDePY6sE79m5hT7w4E8crvV_7u6e9Sc)
+
+* Precision
+= TP_A/(Total predicted as A)
+= TP_A/TotalPredicted_A
+= 0.5
+<br>
+* Recall
+= TP_A/(Total Gold for A)
+= TP_A/TotalGoldLabel_A
+= 0.3
+
+
+
+<br>
+<br>
+<br>
+#### 참고문헌
+* http://text-analytics101.rxnlp.com/2014/10/computing-precision-and-recall-for.html
