@@ -22,12 +22,12 @@ tags: Fragment
 
 * 피어슨 상관 계수
 
-> 피어슨 상관 계수(Pearson correlation coefficient 또는 Pearson's r)는 두 변수간의 관련성을 구하기 위해 보편적으로 이용된다. 개념은 다음과 같다.
+> 피어슨 상관 계수(Pearson correlation coefficient 또는 Pearson's r)는 두 변수간의 관련성을 구하기 위해 보편적으로 이용된다.
 
 > r = X와 Y가 함께 변하는 정도 / X와 Y가 각각 변하는 정도
 
 * 결과의 해석
-> r 값은 X 와 Y 가 완전히 동일하면 +1, 전혀 다르면 0, 반대방향으로 완전히 동일 하면 –1 을 가진다. 결정계수 (coefficient of determination) 는 r^2 로 계산하며 이것은 X 로부터 Y 를 예측할 수 있는 정도를 의미한다.
+> r 값은 X 와 Y 가 완전히 동일하면 +1, 전혀 다르면 0, 반대방향으로 완전히 동일 하면 –1 을 가진다.
 
 
 
