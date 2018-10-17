@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "python_openpyxl"
+title:  "python openpyxl(엑셀 읽기, 쓰기)"
 date:   2018-03-02 08:43:59
 author: kim-jaehun
 categories: [Android]
