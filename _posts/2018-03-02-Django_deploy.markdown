@@ -40,7 +40,7 @@ testproject라는 이름의 Djano프로젝트가 생성되었다.
 
 ```python
 # test.py
-application(env, start_response):
+def application(env, start_response):
   start_response('200 OK', [('Content-Type','text/html')])
   return [b"Hello World"]
 ```
