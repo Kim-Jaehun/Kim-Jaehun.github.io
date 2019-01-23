@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Tensorflow Serving"
+title:  "Tensorflow Serving2"
 date:   2018-03-02 08:43:59
 author: kim-jaehun
 categories: [Android]
