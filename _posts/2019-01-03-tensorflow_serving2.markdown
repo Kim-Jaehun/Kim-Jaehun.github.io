@@ -112,12 +112,11 @@ http://127.0.0.1:60001/v1/models/testmodel
 * REST API 호출
 
 ```
-#POST
 127.0.0.1:60001/v1/models/testmodel:predict
-
 #body
 {"instances": [1.0]}
-
+```
+```
 curl -d '{"inputs": [1.0]}' -X POST 127.0.0.1:60001/v1/models/testmodel:predict
 ```
 
