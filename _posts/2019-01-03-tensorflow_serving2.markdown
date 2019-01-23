@@ -89,6 +89,7 @@ tensorflow_model_server --model_name=testmodel --model_base_path=/tmp/savedmodel
 <br>
 
 * Model status API
+
 ```
 #GET
 http://127.0.0.1:60001/v1/models/testmodel
@@ -109,15 +110,14 @@ http://127.0.0.1:60001/v1/models/testmodel
 ```
 
 * REST API 호출
+
 ```
 #POST
 127.0.0.1:60001/v1/models/testmodel:predict
 
 #body
 {"instances": [1.0]}
-```
-or
-```
+
 curl -d '{"inputs": [1.0]}' -X POST 127.0.0.1:60001/v1/models/testmodel:predict
 ```
 
