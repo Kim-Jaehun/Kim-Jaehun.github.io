@@ -115,7 +115,7 @@ $ sudo service nginx restart
 source serve_project_env/bin/activate
 ```
 ```
-(serve_project_env) $ gunicorn --unix:test.sock wsgi:app
+(serve_project_env) $ gunicorn --bind unix:test.sock wsgi:app
 ```
 `gunicorn`에서도 소켓통신을 하도록 지정한다. `http:localhost:5000`으로 접속하게 되면  `Hello There`을 볼 수 있다.
 
