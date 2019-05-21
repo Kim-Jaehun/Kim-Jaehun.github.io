@@ -53,26 +53,26 @@ logrotate 는 특정 파일을 일정 시점, 압축, 메일보내기 등 로그
 ### Logrotate 옵션에 대한 설명
 
 
-create 0644 nginx nginx : 생성된 파일은 0644권한을 주며 nginx유저와 nginx그룹을 가지도록 한다.
-daily : 일 단위로 rotate한다.
-rotate 30 : 30개 이상된 로그파일을 삭제
-missingok : 로그파일이 없더라도 오류를 발생시키지 않는다.
-notifempty : 파일의 내용이 없을 경우 파일을 생성하지 않는다.
-dateext : 1,2,3... 같은 라벨이 아닌 날짜를 붙여서 파일을 생성한다.
-dateformat .%Y-%m-%d.log : 파일에 .YYYY-MM-DD.log를 뒤에 붙인다. dateexe옵션과 같이 쓰인다.
-sharedscripts : postrotate ~ endscript안에 script가 동작할때 각각의 로그마다 실행 되는 것이 아니라 1번만 실행되도록 하는 옵션이다. (즉) `/home/user/log/nginx/*.log{ ... }` 으로 확장자가 log라는 파일을 rotate할때 각각의 파일이 아닌 1번만 postrotate ~ endscript안의 스크립트를 실행하도록 하는 옵션이다.
-maxage 30 : 30일 이상된 로그파일 삭제
-size 용량 : 지정된 용량이 되면 rotate한다.
-ifempty : 로그파일이 비어있는 경우에도 rotate한다.
-monthly : 월단위로 rotate한다.
-weekly : 주단위로 rotate한다.
-compress : gzip으로 압축한다.
-nocompress : 압축하지 않는다.
-mail 메일주소 : 설정에 의해 보관 기간이 끝난 파일을 메일주소로 발송한다.
-mailfirst 메일주소 : 원본파일을 메일주소로 보낸다.
-nomail : 메일을 받지 않는다.
-errors 메일주소 : rotate중 오류발생시 메일주소로 통보한다.
-copytruncate : 로그파일의 내용을 복사하고 로그파일의 크기를 0으로 만들도록 동작하게 하는 옵션. (만약 파일용량이 크다면 하지 복사하는데 I/O자원이 소모되므로 피해야 한다)
+create 0644 nginx nginx : 생성된 파일은 0644권한을 주며 nginx유저와 nginx그룹을 가지도록 한다.<br>
+daily : 일 단위로 rotate한다.<br>
+rotate 30 : 30개 이상된 로그파일을 삭제<br>
+missingok : 로그파일이 없더라도 오류를 발생시키지 않는다.<br>
+notifempty : 파일의 내용이 없을 경우 파일을 생성하지 않는다.<br>
+dateext : 1,2,3... 같은 라벨이 아닌 날짜를 붙여서 파일을 생성한다.<br>
+dateformat .%Y-%m-%d.log : 파일에 .YYYY-MM-DD.log를 뒤에 붙인다. dateexe옵션과 같이 쓰인다.<br>
+sharedscripts : postrotate ~ endscript안에 script가 동작할때 각각의 로그마다 실행 되는 것이 아니라 1번만 실행되도록 하는 옵션이다. (즉) `/home/user/log/nginx/*.log{ ... }` 으로 확장자가 log라는 파일을 rotate할때 각각의 파일이 아닌 1번만 postrotate ~ endscript안의 스크립트를 실행하도록 하는 옵션이다.<br>
+maxage 30 : 30일 이상된 로그파일 삭제<br>
+size 용량 : 지정된 용량이 되면 rotate한다.<br>
+ifempty : 로그파일이 비어있는 경우에도 rotate한다.<br>
+monthly : 월단위로 rotate한다.<br>
+weekly : 주단위로 rotate한다.<br>
+compress : gzip으로 압축한다.<br>
+nocompress : 압축하지 않는다.<br>
+mail 메일주소 : 설정에 의해 보관 기간이 끝난 파일을 메일주소로 발송한다.<br>
+mailfirst 메일주소 : 원본파일을 메일주소로 보낸다.<br>
+nomail : 메일을 받지 않는다.<br>
+errors 메일주소 : rotate중 오류발생시 메일주소로 통보한다.<br>
+copytruncate : 로그파일의 내용을 복사하고 로그파일의 크기를 0으로 만들도록 동작하게 하는 옵션. (만약 파일용량이 크다면 하지 복사하는데 I/O자원이 소모되므로 피해야 한다)<br>
 
 
 
