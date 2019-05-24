@@ -39,7 +39,7 @@ def init_db():
     # import all modules here that might define models so that
     # they will be registered properly on the metadata.  Otherwise
     # you will have to import them first before calling init_db()
-    import yourapplication.models
+    import models
     Base.metadata.create_all(bind=engine)
 ```
 
@@ -47,7 +47,7 @@ def init_db():
 #models.py
 
 from sqlalchemy import Column, Integer, String
-from yourapplication.database import Base
+from database import Base
 
 class User(Base):
     __tablename__ = 'users'
@@ -68,8 +68,8 @@ class User(Base):
 from database import init_db
 init_db()
 
-from yourapplication.database import db_session
-from yourapplication.models import User
+from database import db_session
+from models import User
 u = User('admin', 'admin@localhost')
 db_session.add(u)
 db_session.commit()
@@ -78,6 +78,12 @@ User.query.all()
 User.query.filter(User.name == 'admin').first()
 ```
 
+<br>
+```python
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
+```
 Flask will automatically remove database sessions at the end of the request or when the application shuts down:
 
 `Flask`는 자동적으로 `DB Sesseion`을 리퀘스트에 끝나거나 또는 어플리케이션이 종료될때 제거한다.
@@ -107,7 +113,7 @@ def init_db():
 #models.py
 from sqlalchemy import Table, Column, Integer, String
 from sqlalchemy.orm import mapper
-from yourapplication.database import metadata, db_session
+from database import metadata, db_session
 
 class User(object):
     query = db_session.query_property()
