@@ -47,7 +47,8 @@ logo:                  /assets/icons/icon.png
 author:
   name:                Jaehun Kim
   email:               <wogjs217@gmail.com>
-  picture:  /assets/img/me.jpg
+  picture:             /assets/img/me.jpg
+
   # Used by `jekyll-seo-tag`:
   # twitter:             <username>
 
@@ -74,12 +75,8 @@ paginate_path:         /page-:num/
 # ========================================================================================
 
 # Sidebar image and theme color of the site.
-# accent_image:          /assets/img/puppy.jpg
-# accent_color:          '#4fb1ba'
-
-# Fallback image and color
-image:               /assets/img/puppy.jpg
-color:               '#4f86aa'
+accent_image:          /assets/img/puppy.jpg
+accent_color:          '#4fb1ba'
 
 # The string encoding which fonts to fetch from Google Fonts.
 # See: <https://qwtel.com/hydejack/docs/configuration/>
