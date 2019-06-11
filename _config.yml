@@ -55,10 +55,10 @@ author:
 
 # Add links to the sidebar.
 menu:
-  - title:             Example
-    url:               /example/
-  - title:             Documentation
-    url:               https://hydejack.com/docs/
+  - title:             Python
+    url:               /Python/
+  - title:             Jekyll_Example
+    url:               /Jekyll_Example/
   - title:             About
     url:               /about/
 
