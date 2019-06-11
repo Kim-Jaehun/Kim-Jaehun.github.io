@@ -3,7 +3,7 @@ layout: post
 date:   2018-03-02 08:43:59
 title:  "Django Rest Framework(DRF)"
 author: kim-jaehun
-categories: [python, django]
+categories: [django]
 tags: Django Rest Framework
 ---
 
