@@ -3,8 +3,8 @@ layout: post
 title:  "Logrotate에 nginx 등록"
 date:   2019-05-20 08:43:59
 author: kim-jaehun
-categories: [ubuntu, liunx]
-tags: [ubuntu, liunx]
+categories: [ubuntu, linux]
+tags: [ubuntu, linux]
 sitemap :
   changefreq : daily
   priority : 1.0
