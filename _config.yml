@@ -55,6 +55,11 @@ menu:
     url:               /python/
   - title:             Linux
     url:               /linux/
+  - title:             Tensorflow
+    url:               /tensorflow/
+  - title:             Kaggle
+    url:               /kaggle/
+
 
 # Add links to the footer.
 # Typically you'll want to link to your cookie- or privacy policy (if appliable), etc..
