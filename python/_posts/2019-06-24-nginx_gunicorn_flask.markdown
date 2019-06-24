@@ -11,7 +11,7 @@ sitemap :
 ---
 
 
-###Nginx Gunicorn Flask
+## Nginx Gunicorn Flask
 `flask` 앱은 단순히 실행하는 것은 테스트용으로 서버로는 적절하지만 서비스에는 부적절하다.
 
 그렇기때문에 `Nginx`<->`Gunicorn` <->`flask` 형태로 구성하여 배포한다.

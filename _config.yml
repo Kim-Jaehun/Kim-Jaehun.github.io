@@ -59,6 +59,8 @@ menu:
     url:               /tensorflow/
   - title:             Kaggle
     url:               /kaggle/
+  - title:             Machine learning
+    url:               /machine_learning/
 
 
 # Add links to the footer.
