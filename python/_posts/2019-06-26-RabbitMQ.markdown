@@ -1,0 +1,201 @@
+---
+layout: post
+title:  "RabbitMQ"
+date:   2019-06-26 08:43:59
+author: kim-jaehun
+categories: [python]
+tags: [python]
+sitemap :
+  changefreq : daily
+  priority : 1.0
+---
+
+
+## RabbitMQ
+RabbitMQ는 메시지 브로커입니다.
+* 메시지를 보내는 프로그램을 프로듀서(producer)라고 합니다  
+* 컨슈머(Consumer)는 메시지를 받기 위해 기다리고 처리하는 프로그램입니다.
+* 큐(queue)는 RabbitMQ 내부에 있는 우체통(메시지 임시 저장소)의 이름입니다.
+
+
+
+### RabbitMQ Basic
+
+
+![RabbitMQ_Basic](https://drive.google.com/uc?id=1s6D1aZCeR4sBocMvltRbMJzSH-U__2VX)
+
+
+기본적으로 메시지를 보내고, 받는법을 알아보자.
+```python
+# send.py
+
+import pika
+
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='hello')
+
+channel.basic_publish(exchange='', routing_key='hello', body='Hello World!')
+print(" [x] Sent 'Hello World!'")
+
+connection.close()
+```
+
+```python
+#receive.py
+
+import pika
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='hello')
+
+def callback(ch, method, properties, body):
+    print(" [x] Received %r" % body)
+
+channel.basic_consume(callback, queue='hello', no_ack=True)   
+
+print(' [*] Waiting for messages. To exit press CTRL+C')
+channel.start_consuming()
+```
+
+
+
+### Work Queues
+
+Work Queues (aka: Task Queues)
+
+![RabbitMQ_Woker](https://drive.google.com/uc?id=1-wbRXh8cUghOTGRavpfBU3jIdWvo-OQw)
+
+
+```python
+# new_task.py
+
+import pika
+import sys
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='task_queue', durable=True)
+
+message = ' '.join(sys.argv[1:]) or "Hello World!"
+channel.basic_publish(exchange='',
+                      routing_key='task_queue',
+                      body=message,
+                      properties=pika.BasicProperties(
+                         delivery_mode = 2, # make message persistent
+                      ))
+print(" [x] Sent %r" % message)
+connection.close()
+```
+
+
+```python
+# worker.py
+
+import pika
+import time
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='task_queue', durable=True)
+print(' [*] Waiting for messages. To exit press CTRL+C')
+
+def callback(ch, method, properties, body):
+    print(" [x] Received %r" % body)
+    time.sleep(body.count(b'.'))
+    print(" [x] Done")
+    ch.basic_ack(delivery_tag = method.delivery_tag)
+
+channel.basic_qos(prefetch_count=1)
+channel.basic_consume(callback,
+                      queue='task_queue')
+
+channel.start_consuming()
+```
+
+#####Round-robin dispatching
+RabbitMQ는 Consumer가 병렬처리를 쉽게 할 수 있도록 같은 Queue를 바라보고 있는 Consumer에게 메시지를 균등 분배한다.
+
+#####Message acknowledgment
+ack (nowledgement)는 특정 메시지가 수신되고 처리되었으며 RabbitMQ가 메시지를 삭제할 수 있다고 RabbitMQ에게 알리기 위해 작업 클라이언트가 보낸 답입니다.
+
+ack를 전송하지 않고 작업 클라이언트가 죽거나 (채널이 닫히거나 연결이 끊어 지거나 TCP 연결이 끊어지는 경우) RabbitMQ는 메시지가 완전히 처리되지 않았음을 인식하고 큐에 다시 대기합니다. 동시에 다른 작업 클라이언트가 온라인 상태이면 다른 작업 클라이언트에게 신속하게 다시 전달합니다.
+
+#####Message durability
+메시지를 Queue에 넣은 뒤 Consumer에게 전달하기 전에 RabittMQ 서버가 죽는다면 기본적으로 해당 메시지는 날라가버리게 된다. 이런 상황을 방지 하기 위해 durable이라는 개념을 가지고 있다.
+
+#####Fair dispatch
+여러 consumer에게 round robin할 때 번갈아가면서 메시지를 전달하지만 완전히 공평하진 않음. (매홀수는 데이터크기가 크고, 매짝수는 데이터크기가 작은 등)
+때문에 busy한 서버에게 메시지를 계속 전달하지 않도록 prefetchCount라는 개념사용
+
+
+<br>
+## RabbitMQ multi threaded read message consumer
+
+Consumer를 쓰레드의 갯수만큼 생성해 메시지를 받는다.
+
+```python
+import pika
+import logging
+import threading
+import requests
+import json
+
+QUEUE_NAME = 'hello'
+RABBITMQ_URL = 'localhost'
+
+
+class WorkerThread(threading.Thread):
+	def __init__(self, threadID, name, counter):
+		threading.Thread.__init__(self)
+		self.threadID = threadID
+		self.name = name
+		self.counter = counter
+
+
+	def initRabbitMQ(self):
+		self.q_conn = pika.BlockingConnection(pika.ConnectionParameters(host=RABBITMQ_URL))
+		self.q_channel = self.q_conn.channel()
+		self.q_channel.queue_declare(queue=QUEUE_NAME)  # create queue
+
+
+
+	def callback(self, ch, method, properties, body):
+		print(self.name, '===', body)
+
+
+
+
+	def run(self):
+		self.initRabbitMQ()
+		self.q_channel.basic_consume(QUEUE_NAME, self.callback, True)
+		self.q_channel.start_consuming()
+
+def main():
+
+	max_thread = 3
+
+	threadList = []
+	for i in range(max_thread):
+		t_name = "WorkerThread-" + str(i)
+		t = WorkerThread(i, t_name, i)
+		t.start()
+		threadList.append(t)
+
+
+if __name__ == '__main__':
+	main()
+
+```
+
+<br><br>
+#### 참고문헌
+* https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-18-04
+* http://gjchoi.github.io/rabbit/rabbit-mq-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/
+* https://blog.storyg.co/rabbitmqs/tutorials/python/02-work-queue
+* https://bcho.tistory.com/843

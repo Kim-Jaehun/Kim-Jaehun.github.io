@@ -126,7 +126,7 @@ tpr이 1개씩 보낼때는 `Time per request: 1002.733 [ms] (mean)` tpr이 10�
 ## Flask Gunicorn Performance Testing
 
 옵션의 적절한 숫자는 이렇게 계산한다.
-cpu =  NUM_CPU
+cpu =  2 * NUM_CPU + 1
 thread = 2 * NUM_CPU + 1
 
 ```
