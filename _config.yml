@@ -61,6 +61,8 @@ menu:
     url:               /kaggle/
   - title:             Machine learning
     url:               /machine_learning/
+  - title:             Web
+    url:               /web/
 
 
 # Add links to the footer.
