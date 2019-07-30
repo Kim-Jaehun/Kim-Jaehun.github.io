@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Multiprocessing communication"
-date:   2019-07-15 08:43:59
+date:   2019-07-30 08:43:59
 author: kim-jaehun
 categories: [python]
 tags: [python]
@@ -10,81 +10,70 @@ sitemap :
   priority : 1.0
 ---
 
-##Mutiprocessing
+##Multiprocessing communication
 
-mutiprocessing 에서는 `Pool` 과 `Process` 를 이용하여 하나 이상의 자식 process를 생성하여, 병렬구조로 처리합니다.
+프로세스 간의 값의 communication이 필요할 떄 `Queue`와 `PIPE`를 제공하고 있습니다.
 
-##Pool
+`Pipe()` can only have two endpoints.
+`Queue()` can have multiple producers and consumers.
 
-입력값을 process들을 건너건너 분배하여 함수실행의 병렬화 하는 편리한 수단을 제공한다.
-
-
-```python
-from multiprocessing import Pool
-import os
-
-def doubler(number):
-    result = number * 2
-    proc = os.getpid()
-    print('{0} doubled to {1} by process id: {2}'.format(number, result, proc))
-
-if __name__ == '__main__':
-    p = Pool(3)
-    p.map(doubler, range(0,10))
+Pipe가 Queue보다 빠르다.
 
 
-#0 doubled to 0 by process id: 19162
-#1 doubled to 2 by process id: 19163
-#2 doubled to 4 by process id: 19164
-#3 doubled to 6 by process id: 19162
-#4 doubled to 8 by process id: 19164
-#5 doubled to 10 by process id: 19163
-#6 doubled to 12 by process id: 19164
-#7 doubled to 14 by process id: 19162
-#8 doubled to 16 by process id: 19163
-#9 doubled to 18 by process id: 19162
-```
+ 프로세스가 종료되면 그것의 자식 데몬 프로세스들을 강제종료 시킬 것이다. 데몬 프로세스는 자식 프로세스를 생성 할 수 없으며, 유닉스 데몬이나 서비스가 아니다. 디폴트인 넌데몬프로세스 (daemon = False) 일 경우에는 해당 프로세스가 종료 될 때까지 메인프로세스는 종료되지 않는다. 암시적으로 내부에서 join() 하고 있다.  
+참고로 메인프로세스가 갑자기 죽은 경우 데몬 자식 프로세스를 종료하지 못한다.
 
-PID `19162`, `19163` ,`19164` 3개의 프로세스들이 처리하는 하고 있다.
-
-##Process
-
-Process 는 하나의 프로세스를 하나의 함수에 적당한 인자값을 할당 또는 할당하지 않고 실행합니다.
+### Queue
 
 ```python
-import os
-from multiprocessing import Process
+from multiprocessing import Process, Queue
 
-def doubler(number):
-    result = number * 2
-    proc = os.getpid()
-    print('{0} doubled to {1} by process id: {2}'.format(number, result, proc))
+def f(q, name):
+	q.put(name)
 
 if __name__ == '__main__':
-	numbers = [0,1,2]
-	procs = []
+	q = Queue()
+	p1 = Process(target=f, args=(q, 'aaa'))
+	p2 = Process(target=f, args=(q, 'bbb'))
 
-	for index, number in enumerate(numbers):
-		proc = Process(target=doubler, args=(number,))
-		procs.append(proc)
-		proc.start()
+	p1.start()
+	p2.start()
 
-	for proc in procs:
-		proc.join()
+	p1.join()
+	p2.join()
 
-#0 doubled to 0 by process id: 19439
-#1 doubled to 2 by process id: 19440
-#2 doubled to 4 by process id: 19441
+	print(q.qsize())
 
 ```
-PID `19439`, `19440` ,`19441` 3개의 프로세스들이 처리하는 하고 있다.
 
-`pool.close` tells the pool not to accept any new job.
-`pool.join` tells the pool to wait until all jobs finished then exit, effectively cleaning up the pool.
-`pool.terminate()` Stops the worker processes immediately without completing outstanding work.
+### Pipe
+파이프 오브젝트는 서로 연결된 한쌍의 오브젝트로 이루어지며, 한쪽에서 다른쪽으로 데이터를 보낼 수 있다.
+
+```python
+from multiprocessing import Process, Pipe
+
+
+def f(conn):
+	print(conn.recv())
+	conn.send(['Chihaya', 72, 'keut'])
+	conn.close()
+
+
+if __name__ == '__main__':
+	parent_conn, child_conn = Pipe()
+	parent_conn.send(['amami', 'haruka', 'boss'])
+
+	# print(child_conn.recv())
+	p = Process(target=f, args=(child_conn,))
+	p.start()
+	print(parent_conn.recv())
+	p.join()
+  ```
+
+
 
 
 <br><br>
 #### 참고문헌
-* https://m.blog.naver.com/townpharm/220951524843
-* https://stackoverflow.com/questions/35708371/purpose-of-pool-join-pool-close-in-multiprocessing
+* https://stackoverflow.com/questions/8463008/multiprocessing-pipe-vs-queue
+* https://hamait.tistory.com/755

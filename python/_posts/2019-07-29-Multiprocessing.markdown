@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Multiprocessing"
-date:   2019-07-15 08:43:59
+date:   2019-07-29 08:43:59
 author: kim-jaehun
 categories: [python]
 tags: [python]
