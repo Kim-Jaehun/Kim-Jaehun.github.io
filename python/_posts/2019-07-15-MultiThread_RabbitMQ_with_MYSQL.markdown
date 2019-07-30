@@ -3,8 +3,8 @@ layout: post
 title:  "RabbitMQ_MultiThreads_with_Mysql"
 date:   2019-07-15 08:43:59
 author: kim-jaehun
-categories: []
-tags:
+categories: [python]
+tags: [python]
 sitemap :
   changefreq : daily
   priority : 1.0
