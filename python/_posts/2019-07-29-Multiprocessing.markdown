@@ -17,7 +17,7 @@ mutiprocessing 에서는 `Pool` 과 `Process` 를 이용하여 하나 이상의 
 ##Pool
 
 입력값을 process들을 건너건너 분배하여 함수실행의 병렬화 하는 편리한 수단을 제공한다.
-
+Pool은 결과값이 순서대로 온다.
 
 ```python
 from multiprocessing import Pool
@@ -46,11 +46,12 @@ if __name__ == '__main__':
 ```
 
 PID `19162`, `19163` ,`19164` 3개의 프로세스들이 처리하는 하고 있다.
+위의 결과로 0~9까지의 결과가 순서대로 나오는 것을 확인 할 수 있다.
 
 ##Process
 
 Process 는 하나의 프로세스를 하나의 함수에 적당한 인자값을 할당 또는 할당하지 않고 실행합니다.
-
+Process은 결과값이 순서대로 오지 않는다.
 ```python
 import os
 from multiprocessing import Process
@@ -61,7 +62,7 @@ def doubler(number):
     print('{0} doubled to {1} by process id: {2}'.format(number, result, proc))
 
 if __name__ == '__main__':
-	numbers = [0,1,2]
+	numbers = [0,1,2,3,4,5,6,7,8,9]
 	procs = []
 
 	for index, number in enumerate(numbers):
@@ -70,14 +71,22 @@ if __name__ == '__main__':
 		proc.start()
 
 	for proc in procs:
-		proc.join()
-
-#0 doubled to 0 by process id: 19439
-#1 doubled to 2 by process id: 19440
-#2 doubled to 4 by process id: 19441
+		proc.join()c
+#1 doubled to 2 by process id: 25055
+#2 doubled to 4 by process id: 25056
+#5 doubled to 10 by process id: 25059
+#6 doubled to 12 by process id: 25060
+#0 doubled to 0 by process id: 25054
+#7 doubled to 14 by process id: 25061
+#3 doubled to 6 by process id: 25057
+#9 doubled to 18 by process id: 25063
+#8 doubled to 16 by process id: 25062
+#4 doubled to 8 by process id: 25058
 
 ```
 PID `19439`, `19440` ,`19441` 3개의 프로세스들이 처리하는 하고 있다.
+위의 결과로 0~9까지의 결과가 순서에 상관없이 나오는 것을 확인 할 수 있다.
+
 
 `pool.close` tells the pool not to accept any new job.
 `pool.join` tells the pool to wait until all jobs finished then exit, effectively cleaning up the pool.
