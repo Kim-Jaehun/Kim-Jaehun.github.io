@@ -59,7 +59,7 @@ menu:
     url:               /tensorflow/
   - title:             Kaggle
     url:               /kaggle/
-  - title:             Machine learning
+  - title:             Machine_learning
     url:               /machine_learning/
   - title:             Web
     url:               /web/
