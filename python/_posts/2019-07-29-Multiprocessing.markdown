@@ -71,7 +71,7 @@ if __name__ == '__main__':
 		proc.start()
 
 	for proc in procs:
-		proc.join()c
+		proc.join()
 #1 doubled to 2 by process id: 25055
 #2 doubled to 4 by process id: 25056
 #5 doubled to 10 by process id: 25059
