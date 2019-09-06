@@ -1,10 +1,10 @@
 ---
 layout: list
-title: Web
-slug: web
+title: Java
+slug: java
 menu: true
 submenu: true
 order: 1
 description: >
-  디자인이나 창작물들을 담습니다.
+  JAVA 과 관련된 포스팅.
 ---
