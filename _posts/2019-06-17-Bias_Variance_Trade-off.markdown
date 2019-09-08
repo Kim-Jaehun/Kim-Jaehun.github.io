@@ -1,62 +1,233 @@
 ---
 layout: post
-title:  "편향-분산 트레이드 오프(Bias Variance Trade-off)"
-subtitle:   "편향-분산 트레이드 오프(Bias Variance Trade-off)"
+title:  "RNN basic example"
+date:   2018-03-02 08:43:59
+author: kim-jaehun
 categories: algorithm
 tags: machine_learning
+sitemap :
+  changefreq : daily
+  priority : 1.0
 comments: true
 ---
 
-- 편향-분산 트레이드 오프
+- 기본적인 RNN
 
 ---
 
-Bias Variance Trade-off에 관한 글입니다.
+## RNN basic
 
+### RNN
 
-## 편향-분산 트레이드 오프(Bias Variance Trade-off)
+{% highlight python3 %}
+x_data = [[
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0]
+        ]]
+{% endhighlight %}
 
-통계학과 기계 학습 분야에서 말하는 편향-분산 트레이드오프(Bias-variance tradeoff) (또는 딜레마(dilemma))는 지도 학습 알고리즘이 트레이닝 셋의 범위를 넘어 지나치게 일반화 하는 것을 예방하기 위해 두 종류의 오차(편향, 분산)를 최소화 할 때 겪는 문제이다.
+데이터는 one-hot encoding으로 되어있다.
 
-<br>
-### 편향(Bias)이란?
-편향은 학습 알고리즘에서 잘못된 가정을 했을 때 발생하는 오차이다. 높은 편향값은 알고리즘이 데이터의 특징과 결과물과의 적절한 관계를 놓치게 만드는 과소적합(underfitting) 문제를 발생 시킨다.
+batch_size = 1;
+sequence_length = 3;
+embedding_size = 4;
 
-<br>
-### 분산(Variance)이란?
-분산은 트레이닝 셋에 내재된 작은 변동(fluctuation) 때문에 발생하는 오차이다. 높은 분산값은 큰 노이즈까지 모델링에 포함시키는 과적합(overfitting) 문제를 발생 시킨다.
+"Hello world !" -->  문장 1개
+"Hello" , "world" , "!"  --> 단어 3개
+각 단어의 백터의 사이즈 = 4
 
-<br>
-### Bias and variance using bulls-eye diagram
-![Bias and variance using bulls-eye diagram](https://drive.google.com/uc?id=1g7xKn3y2-0cZKuvgrAjY2nrt0Q9156A5)
-
-위의 그림은 bulls-eye diagram을 통해서 쉽게 Bias와 Variance를 표현하고 있니다.
-
-* Underfitting은 모델이 데이터의 기본 패턴을 포착 할 수 없을 때 발생합니다. 이 모델은 일반적으로 편향이 크고(`high bias`) 분산가 적습니다(`low variance`).
-
-* overfitting은 모델이 데이터의 기본 패턴과 함께 노이즈를 포착할 때 발생합니다. 노이즈가 많은 모델을 학습할 떄 발생합니다. 이 모델은 편향이 작고(`low bias`) 분산이 큽니다(`high variance`).
-
-![Bias and variance example](https://drive.google.com/uc?id=1t8cBVneRauDc0z6iY-G4Slj2cd470-EC)
+==> [1,3,4]
 
 <br>
-### 결론
 
-우리 모델이 너무 단순하고 파라미터가 거의 없다면 편향이 크고 분산이 낮을 수 있습니다.
-반면에 우리 모델에 많은 수의 매개 변수가 있다면 높은 분산과 낮은 편차를 가질 것입니다.
-따라서 우리는 데이터를 오버피팅 시키지 않고 올바른 / 좋은 균형을 찾아야합니다.
+{% highlight python3 %}
+with tf.variable_scope('one_cell') as scope:
 
-**Total Error = Bias^2 + Variance + irreducible Error**
- 위의 식은 [제곱 오류의 편향-분산 분해](https://ko.wikipedia.org/wiki/%ED%8E%B8%ED%96%A5-%EB%B6%84%EC%82%B0_%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%93%9C%EC%98%A4%ED%94%84)와 [Understanding the Bias-Variance Tradeoff](https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-165e6942b229)을 참고해서 보면 유도할 수 있다.
+    X = tf.placeholder(tf.float32, [1, 3, 4])
+    hidden_size = 2
+    cell = tf.contrib.rnn.BasicRNNCell(num_units=hidden_size)
+    outputs, states = tf.nn.dynamic_rnn(cell, X, dtype=tf.float32)
 
-![Total Error = Bias^2 + Variance + irreducible Error Graph](https://drive.google.com/uc?id=1fkUZqaqV6HDF04lpTwP9tPft6Vaxv4AX)
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        outputs, states = sess.run([outputs, states], feed_dict={X: x_data})
+
+        print(outputs)
+        print(states)
+
+{% endhighlight %}
+<br>
+hidden_size = 2 로 설정함으로써,  4 차원 --> 2차원으로 축소했다고 생각할 수 있다.
+
+여기서 cell이 , 이전의 값들을 기억하고 있다.
 
 
+{% highlight python3 %}
+"""
+[[[-0.5356819  -0.67356485]
+  [ 0.4196428  -0.8449874 ]
+  [-0.85603344 -0.6445809 ]]]
+
+[[-0.85603344 -0.6445809 ]]
+"""
+{% endhighlight %}
+<br>
+결과를 보게 되면 time 마다 outputs 을 볼 수 있다.
+
+states 는 마지막 cell 값(이전의 값들을 기억)을 가지고 있다.
+
+<br><br>
+### batch_size 2인 RNN
+<br>
 
 
+{% highlight python3 %}
+x_data = [[
+            [1, 0, 0, 0],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0]
+        ],[
+            [0, 0, 0, 1],
+            [0, 1, 0, 0],
+            [0, 0, 1, 0]
+
+        ]]
+{% endhighlight %}
 
 
+{% highlight python3 %}
+with tf.variable_scope('2_batches_dynamic_length') as scope:
 
- <br><br>
- #### 참고문헌
- * https://ko.wikipedia.org/wiki/%ED%8E%B8%ED%96%A5-%EB%B6%84%EC%82%B0_%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%93%9C%EC%98%A4%ED%94%84
-* https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-165e6942b229
+    hidden_size = 2
+    X = tf.placeholder(tf.float32, [None, 3, 4])
+    cell = rnn.BasicRNNCell(num_units=hidden_size)
+    outputs, states = tf.nn.dynamic_rnn(cell, X,  dtype=tf.float32)
+
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        outputs, states = sess.run([outputs, states], feed_dict={X:x_data})
+
+"""
+[[[ 0.0508305   0.6284012 ]
+  [-0.5467192   0.5789988 ]
+  [-0.84925133  0.34580162]]
+
+ [[ 0.12604629 -0.43704653]
+  [ 0.14376211  0.28574872]
+  [-0.5611005   0.40640762]]]
+**********
+[[-0.84925133  0.34580162]
+ [-0.5611005   0.40640762]]
+"""
+{% endhighlight %}
+
+<br><br>
+### initial_state가 있는 경우 RNN
+<br>
+
+- initial_state란?
+
+초기에 RNN에 $h_{t-1}$ 가 임의로 지정.
+
+<br>
+{% highlight python3 %}
+with tf.variable_scope('initial_state') as scope:
+
+    X = tf.placeholder(tf.float32, [2, 3, 4])
+
+    hidden_size = 2
+    cell = rnn.BasicRNNCell(num_units=hidden_size)
+    initial_state = cell.zero_state(2, tf.float32)
+    outputs, states = tf.nn.dynamic_rnn(cell, X, initial_state=initial_state, dtype=tf.float32)
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        outputs, states = sess.run([outputs, states], feed_dict={X:x_data})
+
+{% endhighlight %}
+<br>
+
+### MultiRNN
+
+{% highlight python3 %}
+
+with tf.variable_scope('MultiRNNCell') as scope:
+    X = tf.placeholder(tf.float32, [1, 3, 4])
+    cell = rnn.BasicRNNCell(num_units=3)
+    cell2 = rnn.BasicRNNCell(num_units=5)
+    cell3 = rnn.BasicRNNCell(num_units=6)
+    cells = rnn.MultiRNNCell([cell, cell2, cell3])
+    outputs, states = tf.nn.dynamic_rnn(cells, X, dtype=tf.float32)
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        outputs, states = sess.run([outputs, states], feed_dict={X: x_data})
+
+        print(outputs)
+        print('**********')
+        print(states)
+
+{% endhighlight %}
+
+3-layer
+
+output의 출력은 마지막 hidden-siz3=6
+
+마지막 states 3, 5, 6 각각의 cell의 값이 출력.
+
+<br>
+{% highlight python3 %}
+"""
+[[[ 0.10490837 -0.25118724  0.01415536 -0.26365766  0.29573244
+    0.2170027 ]
+  [ 0.61581135  0.14419231 -0.36419457  0.48796558 -0.09259523
+   -0.3199411 ]
+  [-0.34976253 -0.18271485 -0.5188264   0.13098443 -0.65751684
+   -0.47144717]]]
+**********
+(array([[ 0.856855  , -0.5598132 ,  0.55492365]], dtype=float32),
+array([[-0.46948567, -0.3382116 , -0.6107864 , -0.55326957,  0.6156729 ]],  dtype=float32),
+array([[-0.34976253, -0.18271485, -0.5188264 ,  0.13098443, -0.65751684, -0.47144717]], dtype=float32))
+"""
+{% endhighlight %}
+<br>
+
+<br><br>
+### bi-directional
+<br>
+
+![bi-directional](https://drive.google.com/uc?id=1GrwcGT8QaJdzBbsTggxnpjchu-UmN6gB)
+<br>
+
+{% highlight python3 %}
+with tf.variable_scope('bi-directional') as scope:
+    X = tf.placeholder(tf.float32, [1, 3, 4])
+    cell_fw = rnn.BasicRNNCell(num_units=2)
+    cell_bw = rnn.BasicRNNCell(num_units=2)
+    outputs, states = tf.nn.bidirectional_dynamic_rnn(cell_fw, cell_bw, X, dtype=tf.float32)
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        outputs, states = sess.run([outputs, states], feed_dict={X: x_data})
+
+        print(outputs)
+        print('**********')
+        print(states)
+{% endhighlight %}
+<br>
+
+
+output의 출력은 마지막 hidden-siz3=6
+마지막 states 3, 5, 6 각각의 cell의 값이 출력
+
+<br>
+{% highlight python3 %}
+"""
+(array([[[-0.11544231, -0.6719475 ], [ 0.64414954, -0.41345194], [ 0.7955334 ,  0.10082521]]], dtype=float32),
+array([[[ 0.26266363, -0.7163632 ], [-0.02817043, -0.88044846], [ 0.31503847, -0.5990384 ]]], dtype=float32))
+**********
+
+(array([[0.7955334 , 0.10082521]], dtype=float32),
+array([[ 0.26266363, -0.7163632 ]], dtype=float32))
+
+"""
+{% endhighlight %}
+<br>
