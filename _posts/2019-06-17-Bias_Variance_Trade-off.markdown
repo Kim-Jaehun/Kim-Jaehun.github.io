@@ -4,6 +4,10 @@ title:  "편향-분산 트레이드 오프(Bias Variance Trade-off)"
 subtitle:   "편향-분산 트레이드 오프(Bias Variance Trade-off)"
 categories: algorithm
 tags: machine_learning
+comments: true
+---
+
+- 편향-분산 트레이드 오프
 
 ---
 
