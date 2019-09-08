@@ -10,12 +10,13 @@ sitemap :
   priority : 1.0
 ---
 
+
+
 ##Logrotate란
 
 logrotate 는 특정 파일을 일정 시점, 압축, 메일보내기 등 로그를 저장하는 명령어이다.
 
-
-* `cron` 스케줄러에 의해 매일 실행된다.
+* `cron` 스케줄러에 의해서, 명령어가 실행된다.
 * `/etc/logrotate.conf` (설정 파일)
 * `/etc/logrotate.conf` 에서 `/etc/logrotate.d`를 include 하고 있다. 모든 `/etc/logrotate.d/` 밑의 모든 하위 파일들은 설정파일에 포함된다.
 * `/etc/logrotate.d/`밑에 설정파일을 가지고 있는 서비스(Apache webserver, postgreSQL, MySql, KDE desktop manager etc.)는 logrotate를 통해서 로그를 기록한다.
@@ -24,7 +25,7 @@ logrotate 는 특정 파일을 일정 시점, 압축, 메일보내기 등 로그
 ## Logrotate에 nginx 등록
 
 ```
-# vi /etc/logrotate.d/nginx access-log
+# vi /etc/logrotate.d/nginx_access-log
 
 /apps/apps/test/fail_exposition/log/access{
         daily
