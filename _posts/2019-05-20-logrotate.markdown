@@ -8,8 +8,12 @@ tags: linux
 sitemap :
   changefreq : daily
   priority : 1.0
+comments: true
 ---
 
+- Logrotate에 nginx 등록에 관한 글입니다.
+
+---
 
 ##Logrotate란
 

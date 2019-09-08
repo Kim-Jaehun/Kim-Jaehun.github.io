@@ -8,6 +8,11 @@ tags: deep_learning
 sitemap :
   changefreq : daily
   priority : 1.0
+comments: true
+---
+
+- 기본적인 RNN
+
 ---
 
 ## RNN basic
