@@ -2,7 +2,7 @@
 layout: tag-blog
 title: Deep_learning
 slug: deep_learning
-category: algorithm
+category: algorithm              
 menu: false
 order: 2
 ---
