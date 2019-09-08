@@ -3,8 +3,8 @@ layout: post
 title:  "RNN basic example"
 date:   2018-03-02 08:43:59
 author: kim-jaehun
-categories: algorithm
-tags: machine_learning
+categories: java
+tags: spring
 sitemap :
   changefreq : daily
   priority : 1.0
