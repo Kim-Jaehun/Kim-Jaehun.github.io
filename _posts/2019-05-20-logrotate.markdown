@@ -26,11 +26,7 @@ logrotate 는 특정 파일을 일정 시점, 압축, 메일보내기 등 로그
 ## Logrotate에 nginx 등록
 
 ```
-<<<<<<< HEAD
 # vi /etc/logrotate.d/nginx_access-log
-=======
-# vi /etc/logrotate.d/nginx access-log
->>>>>>> master
 
 /apps/apps/test/fail_exposition/log/access{
         daily
