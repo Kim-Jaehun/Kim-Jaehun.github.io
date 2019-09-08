@@ -11,7 +11,6 @@ sitemap :
 ---
 
 
-
 ##Logrotate란
 
 logrotate 는 특정 파일을 일정 시점, 압축, 메일보내기 등 로그를 저장하는 명령어이다.
