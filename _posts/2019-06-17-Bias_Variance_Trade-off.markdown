@@ -4,7 +4,7 @@ title:  "Bias Variance Trade-off"
 date:   2019-06-17 08:43:59
 author: kim-jaehun
 categories: algorithm
-tags: algorithm
+tags: machine_learning
 sitemap :
   changefreq : daily
   priority : 1.0
