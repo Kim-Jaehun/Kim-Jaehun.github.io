@@ -1,20 +1,13 @@
 ---
 layout: post
-title:  "Bias Variance Trade-off"
-date:   2019-06-17 08:43:59
-author: kim-jaehun
+title:  "편향-분산 트레이드 오프(Bias Variance Trade-off)"
+subtitle:   "편향-분산 트레이드 오프(Bias Variance Trade-off)"
 categories: algorithm
-tags: machine_learning
-sitemap :
-  changefreq : daily
-  priority : 1.0
-comments: true
----
-
-- Bias Variance Trade-off에 관한 글입니다.
+tags: machineLearning
 
 ---
 
+Bias Variance Trade-off에 관한 글입니다.
 
 
 ## 편향-분산 트레이드 오프(Bias Variance Trade-off)
