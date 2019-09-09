@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "파이썬 딕셔너리(dictionary) 정렬하기"
-date:   2018-09-09 08:43:59
+date:   2019-09-09 08:43:59
 author: kim-jaehun
 categories: python
 tags: python
@@ -18,7 +18,7 @@ comments: true
 ## 파이썬 딕셔너리 정렬
 
 
-####방법 1 operator 이용
+#### 방법 1 operator 이용
 ```python
 
 import operator
@@ -35,7 +35,7 @@ print(sorted_by_value)
 
 ```
 
-####방법 2 lambda 이용
+#### 방법 2 lambda 이용
 ```python
 
 x = {'a':5, 'c':3, 'd':3, 'b':4, 'e':1}
