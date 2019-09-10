@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[machine_learning] Precision(정밀도), Recall(재현율), Accuracy(정확도) F1 score"
+title:  "[Machine_learning] Precision(정밀도), Recall(재현율), Accuracy(정확도) F1 score"
 date:   2019-09-09 08:43:59
 author: kim-jaehun
 categories: algorithm
