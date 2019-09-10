@@ -22,6 +22,26 @@ comments: true
 - 간단하게, 명령어를 이용해서 url 요청을 보낼 수 있다.
 
 
+<br>
+###  get 방식, post 방식
+
+```
+# get 방식
+$ curl http://localhost:8080
+
+# post 방식
+$ curl -X post -d 'test=ok&test2=ok'
+```
+
+<br>
+### post 방식 JSON 데이터 전송
+
+```
+$ curl -X  post -d '{"instances": [2.0]}'
+```
+
+<br>
+#### 옵션
 <table>
   <thead>
     <tr>
@@ -70,25 +90,6 @@ comments: true
 
   </tbody>
 </table>
-
-
-####  get 방식, post 방식
-
-```
-# get 방식
-$ curl http://localhost:8080
-
-# post 방식
-$ curl -X post -d 'test=ok&test2=ok'
-```
-
-#### post 방식 JSON 데이터 전송
-
-```
-$ curl -X post -d '{"instances": [2.0]}'
-```
-
-
 
 <br><br>
 #### 참고문헌
