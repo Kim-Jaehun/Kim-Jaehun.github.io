@@ -30,14 +30,14 @@ comments: true
 $ curl http://localhost:8080
 
 # post 방식
-$ curl -X post -d 'test=ok&test2=ok'
+$ curl -X POST http://localhost:8080 -d 'test=ok&test2=ok'
 ```
 
 <br>
 ### post 방식 JSON 데이터 전송
 
 ```
-$ curl -X  post -d '{"instances": [2.0]}'
+$ curl -X POST http://localhost:8080 -d '{"instances": [2.0]}'
 ```
 
 <br>
