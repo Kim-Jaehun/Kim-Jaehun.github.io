@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "파이썬 딕셔너리(dictionary) 정렬하기"
+title:  "[파이썬] 딕셔너리(dictionary) 정렬하기"
 date:   2019-09-09 08:43:59
 author: kim-jaehun
 categories: python
