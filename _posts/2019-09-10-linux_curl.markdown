@@ -65,7 +65,7 @@ comments: true
 </td>
 </tr></tbody></table>
 
-<br>
+
 ####  get 방식, post 방식
 
 ```
@@ -76,7 +76,6 @@ $ curl http://localhost:8080
 $ curl -X post -d 'test=ok&test2=ok'
 ```
 
-<br>
 #### post 방식 JSON 데이터 전송
 
 ```

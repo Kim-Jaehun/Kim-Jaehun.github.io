@@ -13,7 +13,7 @@ url:                 https://Kim-Jaehun.github.io
 baseurl:             ""
 
 # A very short description of your page
-tagline:              목적있는 삶을 사는 것이었다.
+tagline:              목적있는 삶.
 
 # A short description of the page, used in the sidebar and as fallback for the meta description tag.
 # Markdown enabled, but don't use more than one paragraph (enforced by `>`)
