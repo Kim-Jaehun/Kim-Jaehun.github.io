@@ -92,11 +92,19 @@ python install twine
 dist/ 폴더 밑에 모든 파일들이 업로드된다.
 
 ##  패키지 사용
+```
+pip install customLib
+```
+```python
+import dfsfs
+
+fdsffdsfsdf
+```
 
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1ODE2OTE3MTFdfQ==
+eyJoaXN0b3J5IjpbODI5MjI2NywtMTU4MTY5MTcxMV19
 -->
